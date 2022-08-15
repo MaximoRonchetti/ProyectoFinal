@@ -10,7 +10,8 @@ namespace PrimerEntregaProyectoFinal.ADO.NET
             List<Venta> ventas = new List<Venta>();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryTraerVentas = "SELECT * FROM Venta WHERE IdUsuario = @vIdUsuario";
+                string queryTraerVentas = "SELECT Venta.Id, Venta.Comentarios FROM (Venta INNER JOIN ProductoVendido ON Venta.Id = ProductoVendido.IdVenta)" +
+                    " INNER JOIN Producto ON ProductoVendido.IdProducto = Producto.IdWHERE Producto.IdUsuario = @vIdUsuario";
 
                 SqlParameter parametroIdUsuario = new SqlParameter();
                 parametroIdUsuario.ParameterName = "vIdUsuario";
