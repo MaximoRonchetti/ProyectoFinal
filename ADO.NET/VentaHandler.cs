@@ -5,14 +5,23 @@ namespace PrimerEntregaProyectoFinal.ADO.NET
 {
     internal class VentaHandler : DbHandler
     {
-        public List<Venta> GetVentas()
+        public List<Venta> TraerVentas(Usuario pUsuario)
         {
             List<Venta> ventas = new List<Venta>();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Venta", sqlConnection))
+                string queryTraerVentas = "SELECT * FROM Venta WHERE IdUsuario = @vIdUsuario";
+
+                SqlParameter parametroIdUsuario = new SqlParameter();
+                parametroIdUsuario.ParameterName = "vIdUsuario";
+                parametroIdUsuario.SqlDbType = System.Data.SqlDbType.Int;
+                parametroIdUsuario.Value = pUsuario.Id;
+
+                sqlConnection.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryTraerVentas, sqlConnection))
                 {
-                    sqlConnection.Open();
+                    sqlCommand.Parameters.Add(parametroIdUsuario);
 
                     using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
                     {
@@ -24,6 +33,8 @@ namespace PrimerEntregaProyectoFinal.ADO.NET
 
                                 venta.Id = Convert.ToInt32(dataReader["Id"]);
                                 venta.Comentarios = dataReader["Comentarios"].ToString();
+
+                                ventas.Add(venta);
                             }
                         }
                     }

@@ -6,21 +6,27 @@ namespace PrimerEntregaProyectoFinal
     {
         static void Main(string[] args)
         {
-            ProductoHandler productoHandler = new ProductoHandler();
-
-            productoHandler.GetProductos();
-
             UsuarioHandler usuarioHandler = new UsuarioHandler();
 
             usuarioHandler.GetUsuarios();
 
-            ProductoVendidoHandler productoVendidoHandler = new ProductoVendidoHandler();
+            if (usuarioHandler.IniciarSesion())
+            {
+                ProductoHandler productoHandler = new ProductoHandler();
 
-            productoVendidoHandler.GetProductosVendidos();
+                productoHandler.GetProductos();
 
-            VentaHandler ventaHandler = new VentaHandler();
+                ProductoVendidoHandler productoVendidoHandler = new ProductoVendidoHandler();
 
-            ventaHandler.GetVentas();
+                productoVendidoHandler.GetProductosVendidos();
+
+                VentaHandler ventaHandler = new VentaHandler();
+
+                ventaHandler.GetVentas();
+            }
+            
+
+            
 
         }
     }
