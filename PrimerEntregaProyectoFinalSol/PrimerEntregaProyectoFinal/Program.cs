@@ -17,7 +17,9 @@ namespace PrimerEntregaProyectoFinal
 
             productoHandler.TraerProductos(tobias);
 
-            productoHandler.TraerProductosVendidos(tobias);
+            ProductoVendidoHandler productoVendidoHandler = new ProductoVendidoHandler();
+
+            productoVendidoHandler.TraerProductosVendidos(tobias);
 
             VentaHandler ventaHandler = new VentaHandler();
 
